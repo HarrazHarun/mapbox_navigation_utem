@@ -15,25 +15,33 @@ class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
   String _instruction = "";
   final _origin = WayPoint(
-      name: "Way Point 1",
-      latitude: 2.30522,
-      longitude: 102.31692);
+      name: "Pintu Gerbang UTeM",
+      latitude: 2.30480,
+      longitude: 102.31688);
   final _stop1 = WayPoint(
-      name: "Way Point 2",
-      latitude: 2.30819,
-      longitude: 102.31922);
+      name: "Masjid Sayyidina Abu Bakar UTeM",
+      latitude: 2.31212,
+      longitude: 102.31838);
   final _stop2 = WayPoint(
-      name: "Way Point 3",
-      latitude: 38.91040213277608,
-      longitude: -77.03848242759705);
+      name: "Fakulti Teknologi Maklumat dan Komunikasi (FTMK)",
+      latitude: 2.308101,
+      longitude: 102.318936);
   final _stop3 = WayPoint(
-      name: "Way Point 4",
-      latitude: 38.909650771013034,
-      longitude: -77.03850388526917);
+      name: "Dewan Canselor, UTeM",
+      latitude: 2.31138,
+      longitude: 102.32182);
   final _stop4 = WayPoint(
-      name: "Way Point 5",
-      latitude: 38.90894949285854,
-      longitude: -77.03651905059814);
+      name: "Kolej kediaman Satria",
+      latitude: 2.30992,
+      longitude: 102.31450);
+  final _stop5 = WayPoint(
+      name: "Perpustakaan UTeM",
+      latitude: 2.308833,
+      longitude: 102.320274);
+  final _stop6 = WayPoint(
+      name: "Pejabat Canselori",
+      latitude: 2.313496,
+      longitude: 102.321298);
 
   MapBoxNavigation _directions;
   MapBoxOptions _options;
@@ -122,7 +130,7 @@ class _MyAppState extends State<MyApp> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         ElevatedButton(
-                          child: Text("Start A to B"),
+                          child: Text("Go To Masjid UTeM "),
                           onPressed: () async {
                             var wayPoints = <WayPoint>[];
                             wayPoints.add(_origin);
@@ -142,6 +150,23 @@ class _MyAppState extends State<MyApp> {
                           width: 10,
                         ),
                         ElevatedButton(
+                          child: Text("Go to FTMK "),
+                          onPressed: () async {
+                            var wayPoints = <WayPoint>[];
+                            wayPoints.add(_origin);
+                            wayPoints.add(_stop2);
+
+                            await _directions.startNavigation(
+                                wayPoints: wayPoints,
+                                options: MapBoxOptions(
+                                    mode:
+                                    MapBoxNavigationMode.drivingWithTraffic,
+                                    simulateRoute: false,
+                                    language: "en",
+                                    units: VoiceUnits.metric));
+                          },
+                        ),
+                        /*ElevatedButton(
                           child: Text("Start Multi Stop"),
                           onPressed: () async {
                             _isMultipleStop = true;
@@ -162,79 +187,92 @@ class _MyAppState extends State<MyApp> {
                                     allowsUTurnAtWayPoints: true,
                                     units: VoiceUnits.metric));
                           },
-                        )
+                        );*/
                       ],
                     ),
-                    Container(
-                      color: Colors.grey,
-                      width: double.infinity,
-                      child: Padding(
-                        padding: EdgeInsets.all(10),
-                        child: (Text(
-                          "Embedded Navigation",
-                          style: TextStyle(color: Colors.white),
-                          textAlign: TextAlign.center,
-                        )),
-                      ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      child: Text("Go To Dewan Canselor "),
+                      onPressed: () async {
+                        var wayPoints = <WayPoint>[];
+                        wayPoints.add(_origin);
+                        wayPoints.add(_stop3);
+
+                        await _directions.startNavigation(
+                            wayPoints: wayPoints,
+                            options: MapBoxOptions(
+                                mode:
+                                MapBoxNavigationMode.drivingWithTraffic,
+                                simulateRoute: false,
+                                language: "en",
+                                units: VoiceUnits.metric));
+                      },
                     ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    ElevatedButton(
+                      child: Text("Go to Kediaman Satria "),
+                      onPressed: () async {
+                        var wayPoints = <WayPoint>[];
+                        wayPoints.add(_origin);
+                        wayPoints.add(_stop4);
+
+                        await _directions.startNavigation(
+                            wayPoints: wayPoints,
+                            options: MapBoxOptions(
+                                mode:
+                                MapBoxNavigationMode.drivingWithTraffic,
+                                simulateRoute: false,
+                                language: "en",
+                                units: VoiceUnits.metric));
+                      },
+                    ),
+                  ],
+                ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         ElevatedButton(
-                          child: Text(_routeBuilt && !_isNavigating
-                              ? "Clear Route"
-                              : "Build Route"),
-                          onPressed: _isNavigating
-                              ? null
-                              : () {
-                            if (_routeBuilt) {
-                              _controller.clearRoute();
-                            } else {
-                              var wayPoints = <WayPoint>[];
-                              wayPoints.add(_origin);
-                              wayPoints.add(_stop1);
-                              wayPoints.add(_stop2);
-                              wayPoints.add(_stop3);
-                              wayPoints.add(_stop4);
-                              wayPoints.add(_origin);
-                              _isMultipleStop = wayPoints.length > 2;
-                              _controller.buildRoute(
-                                  wayPoints: wayPoints);
-                            }
+                          child: Text("Go To Library UTeM "),
+                          onPressed: () async {
+                            var wayPoints = <WayPoint>[];
+                            wayPoints.add(_origin);
+                            wayPoints.add(_stop5);
+
+                            await _directions.startNavigation(
+                                wayPoints: wayPoints,
+                                options: MapBoxOptions(
+                                    mode:
+                                    MapBoxNavigationMode.drivingWithTraffic,
+                                    simulateRoute: false,
+                                    language: "en",
+                                    units: VoiceUnits.metric));
                           },
                         ),
                         SizedBox(
                           width: 10,
                         ),
                         ElevatedButton(
-                          child: Text("Start "),
-                          onPressed: _routeBuilt && !_isNavigating
-                              ? () {
-                            _controller.startNavigation();
-                          }
-                              : null,
+                          child: Text("Go to Pejabat Canselori  "),
+                          onPressed: () async {
+                            var wayPoints = <WayPoint>[];
+                            wayPoints.add(_origin);
+                            wayPoints.add(_stop6);
+
+                            await _directions.startNavigation(
+                                wayPoints: wayPoints,
+                                options: MapBoxOptions(
+                                    mode:
+                                    MapBoxNavigationMode.drivingWithTraffic,
+                                    simulateRoute: false,
+                                    language: "en",
+                                    units: VoiceUnits.metric));
+                          },
                         ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        ElevatedButton(
-                          child: Text("Cancel "),
-                          onPressed: _isNavigating
-                              ? () {
-                            _controller.finishNavigation();
-                          }
-                              : null,
-                        )
                       ],
-                    ),
-                    Center(
-                      child: Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Text(
-                          "Long-Press Embedded Map to Set Destination",
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
                     ),
                     Container(
                       color: Colors.grey,
@@ -246,8 +284,8 @@ class _MyAppState extends State<MyApp> {
                               ? "Banner Instruction Here"
                               : _instruction,
                           style: TextStyle(color: Colors.white),
-                          textAlign: TextAlign.center,
-                        )),
+                          textAlign: TextAlign.center)
+                        ),
                       ),
                     ),
                     Padding(
@@ -294,7 +332,8 @@ class _MyAppState extends State<MyApp> {
                     }),
               ),
             )
-          ]),
+          ],
+          ),
         ),
       ),
     );
